@@ -12,11 +12,14 @@ font = pygame.font.SysFont("Arial", 40)
 estado = "menu_inicial"
 
 # Botones menú inicial
-boton_iniciar = pygame.Rect(300, ALTO/2-100, 200, 60)
-boton_salir_inicial = pygame.Rect(300, ALTO/2+25, 200, 60)
+boton_iniciar = pygame.Rect(300, 200, 200, 100)
+boton_salir_inicial = pygame.Rect(300, 400, 200, 100)
 
 # Botones menú principal
 boton_niveles  = pygame.Rect(300, 200, 200, 60)
 boton_opciones = pygame.Rect(300, 280, 200, 60)
 boton_creditos = pygame.Rect(300, 360, 200, 60)
 boton_salir    = pygame.Rect(300, 440, 200, 60)
+
+#Rectangulo personaje
+#rectangulo_girasol =

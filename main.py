@@ -1,5 +1,5 @@
 import pygame
-import config
+import config  as config
 import menus.menu_inicial as menu_inicial
 
 
@@ -11,6 +11,8 @@ reloj = pygame.time.Clock()
 while corriendo:
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
+            corriendo = False
+        elif config.estado == "salir":
             corriendo = False
         elif config.estado == "menu_inicial":
             menu_inicial.menu_inicial()
