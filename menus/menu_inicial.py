@@ -1,38 +1,29 @@
-
 import pygame
-
 import config
 
-def menu_inicial():
+
+def menu_inicial(eventos):
+    # Fondo
     config.pantalla.fill((50, 50, 50))
 
-    pygame.draw.rect(config.pantalla, (200, 200, 200), config.boton_iniciar)
-    pygame.draw.rect(config.pantalla, (200, 200, 200), config.boton_salir_inicial)
-    texto = config.font.render("INICIAR", True, (0, 0, 0))
-    config.pantalla.blit(texto, (config.boton_iniciar.x + 35, config.boton_iniciar.y + 10))
-    texto = config.font.render("SALIR", True, (0, 0, 0))
-    #config.pantalla.blit(texto, (config.boton_salir_inicial.x + 35, config.boton_salir_inicial.y + 10))
+    # Dibujar botones (IMÁGENES)
+    config.pantalla.blit(config.boton_iniciar_img, config.boton_iniciar)
+    config.pantalla.blit(config.boton_salir_img, config.boton_salir_inicial)
+
+    # Obtener posición del mouse
     pos = pygame.mouse.get_pos()
+
+    # HOVER para debug (cursor)
     pos_rect = pygame.Rect(pos[0], pos[1], 2, 5)
     pygame.draw.rect(config.pantalla, (255, 255, 255), pos_rect)
-    print(
-        "dimension boton_salir_inicial: x1:" + str(config.boton_salir_inicial.left),
-            ", y1: " + str(config.boton_salir_inicial.left + config.boton_salir_inicial.width) + 
-            ", x2: " + str(config.boton_salir_inicial.top) + 
-            ", y2: " + str(config.boton_salir_inicial.top + config.boton_salir_inicial.height)
-    )
-    print("dimension pos: " + str(pos))
-    for evento in pygame.event.get():
+
+    # --- MANEJO DE EVENTOS ---
+    for evento in eventos:   # <<< USAMOS LOS EVENTOS QUE LLEGAN
         if evento.type == pygame.MOUSEBUTTONDOWN:
-            if pos_rect.colliderect(config.boton_salir_inicial):
+            if config.boton_salir_inicial.collidepoint(evento.pos):
+                print("SALIR")
                 config.estado = "salir"
-                print("salir")
-        if config.boton_salir_inicial.colliderect((pos[0],pos[1],1,1)):
-            print("estpoy en el botom")
-                
 
-        elif evento.type == pygame.MOUSEBUTTONDOWN:
             if config.boton_iniciar.collidepoint(evento.pos):
+                print("MENÚ PRINCIPAL")
                 config.estado = "menu_principal"
-
-    
