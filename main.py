@@ -24,5 +24,12 @@ while corriendo:
     elif config.estado == "menu_inicial":
         menu_inicial.menu_inicial(eventos)
 
+    elif config.estado == "Nivel 1":
+        import niveles.nivel_1 as nivel_1
+        nuevo = nivel_1.nivel_1()
+        config.estado = nuevo 
+    
+
     pygame.display.flip()
     reloj.tick(60)
+
