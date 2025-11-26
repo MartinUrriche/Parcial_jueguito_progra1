@@ -19,6 +19,20 @@ boton_iniciar = boton_iniciar_img.get_rect(center = (ANCHO // 2, ALTO // 2 - 50)
 boton_salir_img = pygame.image.load('menus/botones/boton.salir.png').convert_alpha()
 boton_salir_inicial = boton_salir_img.get_rect(center=(ANCHO // 2, ALTO // 2 + 50))
 
+#fondo imagen
+fondo_img = pygame.image.load('menus/fondos/maxresdefault.jpg').convert_alpha()
+fondo_img = pygame.transform.scale(fondo_img, (ANCHO,ALTO))
+
+#girasol de imagen
+girasol_img = pygame.image.load('personajes/Girasol 2.1.png')
+girasol_img = pygame.transform.scale(girasol_img, (100, 100))
+girasol_superficie = girasol_img.get_rect(center = (ANCHO // 2, ALTO // 2 + 200))
+
+#BALA IMAGEN
+bala_img = pygame.image.load('personajes/bala.png')
+bala_img = pygame.transform.scale(bala_img, (20,20))
+bala_superficie = bala_img.get_rect(center = (ANCHO // 2, girasol_superficie.top))
+
 
 # Botones menú principal
 boton_niveles  = pygame.Rect(300, 200, 200, 60)

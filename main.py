@@ -1,6 +1,7 @@
 import pygame
 import config
 import menus.menu_inicial as menu_inicial
+import niveles.nivel_1 as nivel_1
 
 pygame.init()
 
@@ -14,7 +15,7 @@ while corriendo:
     for evento in eventos:
         if evento.type == pygame.QUIT:
             pygame.quit()
-            exit()
+            exit() 
 
     # Estados
     if config.estado == "salir":
@@ -25,9 +26,9 @@ while corriendo:
         menu_inicial.menu_inicial(eventos)
 
     elif config.estado == "Nivel 1":
-        import niveles.nivel_1 as nivel_1
-        nuevo = nivel_1.nivel_1()
-        config.estado = nuevo 
+        nivel_1.nivel_1(eventos)
+
+        
     
 
     pygame.display.flip()

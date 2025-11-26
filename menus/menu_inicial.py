@@ -3,8 +3,10 @@ import config
 
 
 def menu_inicial(eventos):
-    # Fondo
-    config.pantalla.fill((50, 50, 50))
+
+    #fondo
+    config.pantalla.blit(config.fondo_img,(0,0))
+    
 
     # Dibujar botones (IMÁGENES)
     config.pantalla.blit(config.boton_iniciar_img, config.boton_iniciar)
@@ -25,5 +27,4 @@ def menu_inicial(eventos):
                 config.estado = "salir"
 
             if config.boton_iniciar.collidepoint(evento.pos):
-                print("MENÚ PRINCIPAL")
-                config.estado = "menu_principal"
+                config.estado = "Nivel 1"
