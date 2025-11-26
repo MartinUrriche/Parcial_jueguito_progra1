@@ -21,7 +21,11 @@ boton_salir_inicial = boton_salir_img.get_rect(center=(ANCHO // 2, ALTO // 2 + 5
 
 #fondo imagen
 fondo_img = pygame.image.load('menus/fondos/maxresdefault.jpg').convert_alpha()
-fondo_img = pygame.transform.scale(fondo_img, (ANCHO,ALTO))
+fondo_img = pygame.transform.scale(fondo_img, (ANCHO, ALTO))
+
+#FONDO NIVEL_1
+fondo_nivel_1 = pygame.image.load('personajes/kindpng_1950544.png').convert_alpha()
+fondo_nivel_1 = pygame.transform.scale(fondo_nivel_1, (ANCHO, ALTO))
 
 #girasol de imagen
 girasol_img = pygame.image.load('personajes/Girasol 2.1.png')

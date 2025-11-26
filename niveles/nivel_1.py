@@ -3,7 +3,7 @@ import config
 
 def nivel_1(eventos):
     config.pantalla.fill((50, 50, 50))
-
+    config.pantalla.blit(config.fondo_nivel_1, (0, 0))
     config.pantalla.blit(config.girasol_img, config.girasol_superficie)
     config.pantalla.blit(config.bala_img, config.bala_superficie)
 
