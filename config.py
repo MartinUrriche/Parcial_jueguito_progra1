@@ -27,15 +27,17 @@ fondo_img = pygame.transform.scale(fondo_img, (ANCHO, ALTO))
 fondo_nivel_1 = pygame.image.load('personajes/kindpng_1950544.png').convert_alpha()
 fondo_nivel_1 = pygame.transform.scale(fondo_nivel_1, (ANCHO, ALTO))
 
-#girasol de imagen
+#girasol imagen
 girasol_img = pygame.image.load('personajes/Girasol 2.1.png')
 girasol_img = pygame.transform.scale(girasol_img, (100, 100))
 girasol_superficie = girasol_img.get_rect(center = (ANCHO // 2, ALTO // 2 + 200))
 
-#BALA IMAGEN
-bala_img = pygame.image.load('personajes/bala.png')
-bala_img = pygame.transform.scale(bala_img, (20,20))
-bala_superficie = bala_img.get_rect(center = (ANCHO // 2, girasol_superficie.top))
+#PELOTA IMAGEN
+pelota_img = pygame.image.load('personajes/bala.png')
+pelota_img = pygame.transform.scale(pelota_img, (20,20))
+pelota_superficie = pelota_img.get_rect(center = (ANCHO // 2, girasol_superficie.top))
+velocidad_pelota = [5, -5]
+pelota_lanzada = False
 
 
 # Botones menú principal
