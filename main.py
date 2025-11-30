@@ -2,7 +2,7 @@ import pygame
 import config
 import menus.menu_inicial as menu_inicial
 import niveles.nivel_1 as nivel_1
-
+import menus.menu_pausa as menu_pausa
 pygame.init()
 
 corriendo = True
@@ -25,11 +25,11 @@ while corriendo:
     elif config.estado == "menu_inicial":
         menu_inicial.menu_inicial(eventos)
 
-    elif config.estado == "Nivel 1":
+    elif config.estado == "Nivel_1":
         nivel_1.nivel_1(eventos)
-
-        
     
+    elif config.estado == "Menu_pausa":
+        menu_pausa.menu_pausa(eventos)
 
     pygame.display.flip()
     reloj.tick(60)

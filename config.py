@@ -19,9 +19,17 @@ boton_iniciar = boton_iniciar_img.get_rect(center = (ANCHO // 2, ALTO // 2 - 50)
 boton_salir_img = pygame.image.load('menus/botones/boton.salir.png').convert_alpha()
 boton_salir_inicial = boton_salir_img.get_rect(center=(ANCHO // 2, ALTO // 2 + 50))
 
-#fondo imagen
+#fondo imagen menu incial
 fondo_img = pygame.image.load('menus/fondos/maxresdefault.jpg').convert_alpha()
 fondo_img = pygame.transform.scale(fondo_img, (ANCHO, ALTO))
+
+#Fondo imagen menu pausa
+fondo_menu_pausa_img = pygame.image.load('menus/fondos/fondo_pausa.jpg').convert_alpha()
+fondo_menu_pausa_img = pygame.transform.scale(fondo_menu_pausa_img,(ANCHO, ALTO))
+
+#botones menu pausa
+boton_jugar_img = pygame.image.load('menus/botones/boton.jugar.png').convert_alpha()
+boton_jugar = boton_jugar_img.get_rect(center = (ANCHO // 2, ALTO // 2 - 50))
 
 #FONDO NIVEL_1
 fondo_nivel_1 = pygame.image.load('personajes/kindpng_1950544.png').convert_alpha()

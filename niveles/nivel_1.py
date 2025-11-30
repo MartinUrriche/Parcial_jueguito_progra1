@@ -5,8 +5,8 @@ def reiniciar_nivel():
     config.velocidad_pelota, config.pelota_lanzada
     
     # Pelota quieta, en posición inicial (APOYADA EN EL GIRASOL)
-    config.bala_superficie.centerx = config.girasol_superficie.centerx
-    config.bala_superficie.bottom = config.girasol_superficie.top
+    config.pelota_superficie.centerx = config.girasol_superficie.centerx
+    config.pelota_superficie.bottom = config.girasol_superficie.top
 
 
 def nivel_1(eventos):
@@ -16,7 +16,7 @@ def nivel_1(eventos):
     config.pantalla.blit(config.fondo_nivel_1, (0, 0))
 
     # Rect de ejemplo como enemigo
-    bloque_rect = pygame.Rect(400, 200, 120, 120)
+    bloque_rect = pygame.Rect(400, 200, 30, 30)
     pygame.draw.rect(config.pantalla, (200, 50, 50), bloque_rect)  # visual para debug
 
     # Dibujar girasol
@@ -39,6 +39,11 @@ def nivel_1(eventos):
 
         if evento.type == pygame.QUIT:
             config.estado = "salir"
+        
+        # Menu pausa
+        if evento.type == pygame.KEYDOWN:
+            if evento.key == pygame.K_BACKSPACE:
+                config.estado = "Menu_pausa"
 
         # Lanzar pelota con click
         if evento.type == pygame.MOUSEBUTTONDOWN and config.pelota_lanzada == False:
@@ -62,10 +67,8 @@ def nivel_1(eventos):
         if config.pelota_superficie.colliderect(bloque_rect):
             reiniciar_nivel()
             config.estado = "menu_inicial"
-            return
 
         # Si toca el suelo pierde (para probar)
         if config.pelota_superficie.bottom >= config.ALTO:
             reiniciar_nivel()
             config.estado = "menu_inicial"
-            return

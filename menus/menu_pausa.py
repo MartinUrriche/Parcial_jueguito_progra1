@@ -1,15 +1,12 @@
 import pygame
-import config
+import config as config
 
-
-def menu_inicial(eventos):
-
+def menu_pausa(eventos):
     #fondo
-    config.pantalla.blit(config.fondo_img,(0,0))
-    
+    config.pantalla.blit(config.fondo_menu_pausa_img,(0,0))
 
-    # Dibujar botones 
-    config.pantalla.blit(config.boton_iniciar_img, config.boton_iniciar)
+    #botones
+    config.pantalla.blit(config.boton_jugar_img, config.boton_jugar)
     config.pantalla.blit(config.boton_salir_img, config.boton_salir_inicial)
 
     # --- MANEJO DE EVENTOS ---
@@ -20,4 +17,7 @@ def menu_inicial(eventos):
                 config.estado = "salir"
 
             if config.boton_iniciar.collidepoint(evento.pos):
-                config.estado = "Nivel_1"
+                config.estado = "Nivel 1"
+
+
+
