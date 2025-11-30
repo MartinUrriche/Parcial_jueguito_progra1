@@ -17,7 +17,11 @@ def menu_pausa(eventos):
                 config.estado = "salir"
 
             if config.boton_iniciar.collidepoint(evento.pos):
-                config.estado = "Nivel 1"
+                config.pelota_superficie.topleft = config.nivel_guardado["pelota_pos"]
+                config.velocidad_pelota = config.nivel_guardado["velocidad_pelota"]
+                config.pelota_lanzada = config.nivel_guardado["pelota_lanzada"]
+            config.estado = "Nivel_1"
+
 
 
 

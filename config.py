@@ -54,6 +54,12 @@ boton_opciones = pygame.Rect(300, 280, 200, 60)
 boton_creditos = pygame.Rect(300, 360, 200, 60)
 boton_salir    = pygame.Rect(300, 440, 200, 60)
 
+#guardar nivel
+nivel_guardado = {
+    "pelota_pos": None,
+    "velocidad_pelota": None,
+    "pelota_lanzada": None
+}
 
 
 #Rectangulo personaje

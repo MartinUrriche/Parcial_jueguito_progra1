@@ -43,6 +43,9 @@ def nivel_1(eventos):
         # Menu pausa
         if evento.type == pygame.KEYDOWN:
             if evento.key == pygame.K_BACKSPACE:
+                config.nivel_guardado["pelota_pos"] = config.pelota_superficie.topleft
+                config.nivel_guardado["velocidad_pelota"] = config.velocidad_pelota.copy()
+                config.nivel_guardado["pelota_lanzada"] = config.pelota_lanzada
                 config.estado = "Menu_pausa"
 
         # Lanzar pelota con click
