@@ -2,11 +2,15 @@ import pygame
 import config
 
 def reiniciar_nivel():
-    config.velocidad_pelota, config.pelota_lanzada
-    
-    # Pelota quieta, en posición inicial (APOYADA EN EL GIRASOL)
+    # Pelota quieta, en posición inicial 
     config.pelota_superficie.centerx = config.girasol_superficie.centerx
     config.pelota_superficie.bottom = config.girasol_superficie.top
+
+    # Velocidad original del nivel
+    config.velocidad_pelota = [5, -5]
+
+    # bandera de si la pelota fue lanzada
+    config.pelota_lanzada = False
 
 
 def nivel_1(eventos):
