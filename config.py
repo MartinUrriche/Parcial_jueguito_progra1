@@ -47,7 +47,7 @@ girasol_superficie = girasol_img.get_rect(center = (ANCHO // 2, ALTO // 2 + 200)
 pelota_img = pygame.image.load('assets/img personajes/bala.png')
 pelota_img = pygame.transform.scale(pelota_img, (20,20))
 pelota_superficie = pelota_img.get_rect(center = (ANCHO // 2, girasol_superficie.top))
-velocidad_pelota = [3, -3]
+velocidad_pelota = [2, -2]
 pelota_lanzada = False
 
 #Vidas imagen

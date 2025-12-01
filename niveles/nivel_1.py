@@ -87,13 +87,46 @@ def nivel_1(eventos):
             config.pelota_superficie.bottom = config.girasol_superficie.top
             config.velocidad_pelota[1] *= -1
 
-        # Si colsiona con el bloque gana (para probar)
+
+                # Colisión con los zombies (rebote correcto por lado de impacto)
         for bloque in config.enemigos:
             if bloque["visible"] and config.pelota_superficie.colliderect(bloque["rect"]):
-                # Rebota
-                config.velocidad_pelota[1] *= -1
-                # Recibe daño
+
+
+                # Centros para calcular el lado del impacto
+                centro_pelota_x = config.pelota_superficie.centerx
+                centro_pelota_y = config.pelota_superficie.centery
+                centro_bloque_x = bloque["rect"].centerx
+                centro_bloque_y = bloque["rect"].centery
+
+                dx = centro_pelota_x - centro_bloque_x
+                dy = centro_pelota_y - centro_bloque_y
+
+                # Decidir si el rebote es horizontal o vertical
+                if abs(dx) > abs(dy):
+                    # Rebote lateral (izquierda/derecha)
+                    config.velocidad_pelota[0] *= -1
+                    if dx > 0:
+                        config.pelota_superficie.left = bloque["rect"].right
+                    else:
+                        config.pelota_superficie.right = bloque["rect"].left
+                else:
+                    # Rebote vertical (arriba/abajo)
+                    config.velocidad_pelota[1] *= -1
+                    if dy > 0:
+                        config.pelota_superficie.top = bloque["rect"].bottom
+                    else:
+                        config.pelota_superficie.bottom = bloque["rect"].top
+
+                # Aplicar daño al zombie
                 enemigo.bloquear_recibir_golpe(bloque)
+
+                # Cortar para evitar doble golpe
+                break
+
+
+
+
 
         # Si toca el suelo pierde (para probar)
         if config.pelota_superficie.bottom >= config.ALTO:
