@@ -38,9 +38,9 @@ def nivel_1(eventos):
     # Dibujar pelota
     config.pantalla.blit(config.pelota_img, config.pelota_superficie)
 
-    # Título
-    texto = config.font.render("NIVEL 1", True, (255, 255, 255))
-    config.pantalla.blit(texto, (config.ANCHO // 2 - 60, 20))
+    # Texto puntaje
+    texto = config.font.render("puntaje:", True, (255, 255, 255))
+    config.pantalla.blit(texto, (config.ANCHO - 200 , config.ALTO - 50))
 
     # ------ PROCESAR EVENTOS ------
     for evento in eventos:
@@ -54,6 +54,7 @@ def nivel_1(eventos):
                 config.nivel_guardado["pelota_pos"] = config.pelota_superficie.topleft
                 config.nivel_guardado["velocidad_pelota"] = config.velocidad_pelota.copy()
                 config.nivel_guardado["pelota_lanzada"] = config.pelota_lanzada
+                config.nivel_guardado["personaje_posicion"] = config.girasol_superficie.topleft
                 config.estado = "Menu_pausa"
 
         # Lanzar pelota con click

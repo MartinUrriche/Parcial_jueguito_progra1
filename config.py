@@ -6,7 +6,8 @@ pygame.init()
 pantalla = pygame.display.set_mode((ANCHO, ALTO))
 pygame.display.set_caption("No es plantas VS zombies")
 
-font = pygame.font.SysFont("Arial", 40)
+#fuente
+font = pygame.font.SysFont("Arial", 30)
 
 # Estado global del juego
 estado = "menu_inicial"
@@ -20,8 +21,8 @@ boton_salir_img = pygame.image.load('assets/img botones/boton.salir.png').conver
 boton_salir_inicial = boton_salir_img.get_rect(center=(ANCHO // 2, ALTO // 2 + 50))
 
 #fondo imagen menu incial
-fondo_img = pygame.image.load('assets/img fondos/maxresdefault.jpg').convert_alpha()
-fondo_img = pygame.transform.scale(fondo_img, (ANCHO, ALTO))
+fondo_menu_inicial_img = pygame.image.load('assets/img fondos/maxresdefault.jpg').convert_alpha()
+fondo_menu_inicial_img = pygame.transform.scale(fondo_menu_inicial_img, (ANCHO, ALTO))
 
 #Fondo imagen menu pausa
 fondo_menu_pausa_img = pygame.image.load('assets/img fondos/fondo_pausa.jpg').convert_alpha()
@@ -32,7 +33,14 @@ boton_jugar_img = pygame.image.load('assets/img botones/boton.jugar.png').conver
 boton_jugar = boton_jugar_img.get_rect(center = (ANCHO // 2, ALTO // 2 - 50))
 
 boton_salir_pausa_img = pygame.image.load('assets/img botones/boton.salir.png').convert_alpha()
-boton_salir_pausa = boton_salir_pausa_img.get_rect(center=(ANCHO // 2, ALTO // 2 + 50))
+boton_salir_pausa = boton_salir_pausa_img.get_rect(center=(ANCHO // 2, ALTO // 2 + 100))
+
+boton_configuraciones_img = pygame.image.load('assets/img botones/boton.configuraciones.png').convert_alpha()
+boton_configuraciones = boton_configuraciones_img.get_rect(center = (ANCHO // 2, ALTO // 2 + 25))
+
+#Fondo configuraciones
+fondo_configuraciones_img = pygame.image.load('assets/img fondos/fondo_pausa.jpg').convert_alpha()
+fondo_configuraciones_img = pygame.transform.scale(fondo_configuraciones_img, (ANCHO,ALTO))
 
 #FONDO NIVEL_1
 fondo_nivel_1 = pygame.image.load('assets/img personajes/kindpng_1950544.png').convert_alpha()
@@ -54,9 +62,9 @@ pelota_lanzada = False
 corazon_img = pygame.image.load('assets/img corazones/corazon.png')
 corazon_img = pygame.transform.scale(corazon_img, (30,30))
 corazones_superficie = [
-    corazon_img.get_rect(topleft = (30, 50)),
-    corazon_img.get_rect(topleft = (60, 50)),
-    corazon_img.get_rect(topleft = (90, 50))
+    corazon_img.get_rect(topleft = (30, 10)),
+    corazon_img.get_rect(topleft = (60, 10)),
+    corazon_img.get_rect(topleft = (90, 10))
     ]
 cantidad_vidas = 3
 
@@ -70,7 +78,8 @@ boton_salir    = pygame.Rect(300, 440, 200, 60)
 nivel_guardado = {
     "pelota_pos": None,
     "velocidad_pelota": None,
-    "pelota_lanzada": None
+    "pelota_lanzada": None,
+    "personaje_posicion": None
 }
 
 #creacion de enemigo

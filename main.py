@@ -4,6 +4,7 @@ import enemigo.enemigo as enemigo
 import menus.menu_inicial as menu_inicial
 import niveles.nivel_1 as nivel_1
 import menus.menu_pausa as menu_pausa
+import menus.menu_configuraciones as menu_configuraciones
 
 pygame.init()
 
@@ -42,6 +43,9 @@ while corriendo:
     
     elif config.estado == "Menu_pausa":
         menu_pausa.menu_pausa(eventos)
+    
+    elif config.estado == "Configuraciones":
+        menu_configuraciones.menu_configuracion(eventos)
 
     pygame.display.flip()
     reloj.tick(60)
