@@ -1,5 +1,6 @@
 import pygame
 import config
+import enemigo.enemigo as enemigo
 
 def reiniciar_nivel():
     # Pelota quieta, en posición inicial 
@@ -7,7 +8,7 @@ def reiniciar_nivel():
     config.pelota_superficie.bottom = config.girasol_superficie.top
 
     # Velocidad original del nivel
-    config.velocidad_pelota = [5, -5]
+    config.velocidad_pelota = [3, -3]
 
     # bandera de si la pelota fue lanzada
     config.pelota_lanzada = False
@@ -15,13 +16,16 @@ def reiniciar_nivel():
 
 def nivel_1(eventos):
     
-
     # Fondo del nivel
     config.pantalla.blit(config.fondo_nivel_1, (0, 0))
 
-    # Rect de ejemplo como enemigo
-    bloque_rect = pygame.Rect(400, 200, 30, 30)
-    pygame.draw.rect(config.pantalla, (200, 50, 50), bloque_rect)  # visual para debug
+    # dibujar enemigo
+    for bloque in config.enemigos:
+        enemigo.dibujar_bloque(bloque)
+
+    #Dibujar corazon
+    for corazon in config.corazones_superficie:
+        config.pantalla.blit(config.corazon_img, corazon)
 
     # Dibujar girasol
     config.pantalla.blit(config.girasol_img, config.girasol_superficie)
@@ -56,6 +60,8 @@ def nivel_1(eventos):
         if evento.type == pygame.MOUSEBUTTONDOWN and config.pelota_lanzada == False:
             config.pelota_lanzada = True
 
+    teclas = pygame.key.get_pressed()
+
     # ------ LÓGICA DE LA PELOTA ------
     if config.pelota_lanzada:
 
@@ -70,12 +76,31 @@ def nivel_1(eventos):
         if config.pelota_superficie.top <= 0:
             config.velocidad_pelota[1] *= -1
 
+        #movimiento girasol si la pelota se disparo
+        if teclas[pygame.K_LEFT] and config.girasol_superficie.left > 0:
+            config.girasol_superficie.x -= 7
+        if teclas[pygame.K_RIGHT] and config.girasol_superficie.right < config.ANCHO:
+            config.girasol_superficie.x += 7
+        
+        #rebote girasol
+        if config.pelota_superficie.colliderect(config.girasol_superficie):
+            config.pelota_superficie.bottom = config.girasol_superficie.top
+            config.velocidad_pelota[1] *= -1
+
         # Si colsiona con el bloque gana (para probar)
-        if config.pelota_superficie.colliderect(bloque_rect):
-            reiniciar_nivel()
-            config.estado = "menu_inicial"
+        for bloque in config.enemigos:
+            if bloque["visible"] and config.pelota_superficie.colliderect(bloque["rect"]):
+                # Rebota
+                config.velocidad_pelota[1] *= -1
+                # Recibe daño
+                enemigo.bloquear_recibir_golpe(bloque)
 
         # Si toca el suelo pierde (para probar)
         if config.pelota_superficie.bottom >= config.ALTO:
+            config.cantidad_vidas -= 1
+            if config.cantidad_vidas > 0:
+                config.corazones_superficie.pop()
+            if config.cantidad_vidas == 0:
+                config.estado = "salir"
             reiniciar_nivel()
-            config.estado = "menu_inicial"
+            

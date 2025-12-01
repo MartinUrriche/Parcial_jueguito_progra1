@@ -1,8 +1,10 @@
 import pygame
 import config
+import enemigo.enemigo as enemigo
 import menus.menu_inicial as menu_inicial
 import niveles.nivel_1 as nivel_1
 import menus.menu_pausa as menu_pausa
+
 pygame.init()
 
 corriendo = True
@@ -26,6 +28,16 @@ while corriendo:
         menu_inicial.menu_inicial(eventos)
 
     elif config.estado == "Nivel_1":
+        if not config.nivel_1_cargado:
+            config.enemigos = enemigo.generar_grilla(
+                filas=3,
+                columnas=5,
+                x_inicial=80,
+                y_inicial=50,
+                sep_x=120,
+                sep_y=90
+            )
+            config.nivel_1_cargado = True
         nivel_1.nivel_1(eventos)
     
     elif config.estado == "Menu_pausa":
