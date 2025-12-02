@@ -18,20 +18,24 @@ def reiniciar_nivel():
 
 def nivel_1(eventos):
 
-    # CONTROL DE SONIDO DEL NIVEL
-    if not config.MUSICA_NIVEL_1:
+     # --- CONTROL DE SONIDO DEL NIVEL ---
+    if not config.musica_nivel_iniciada:
+        # Reproducir sonido inicial una sola vez
         canal = config.sonido_inicio_juego.play()
         if canal:
             canal.set_endevent(pygame.USEREVENT + 10)
-
         config.musica_nivel_iniciada = True
 
+
+    # Cuando termina el sonido de inicio, comienza música del nivel
     for evento in eventos:
         if evento.type == pygame.USEREVENT + 10:
-            # arrancar musica del nivel (loop)
-            pygame.mixer.music.load(config.MUSICA_NIVEL_1)
-            pygame.mixer.music.play(-1)
-            # limpiar el evento
+            # Solo cargar música si no está sonando
+            if not pygame.mixer.music.get_busy():
+                pygame.mixer.music.load(config.MUSICA_NIVEL_1)
+                pygame.mixer.music.play(-1)
+
+            # Limpiamos el evento
             pygame.event.clear(pygame.USEREVENT + 10)
     
     # Fondo del nivel
