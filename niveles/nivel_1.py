@@ -144,21 +144,26 @@ def nivel_1(eventos):
                 config.puntaje += 10
                 break  # solo un zombie por frame
 
-        # --- DEBUG opcional (podés borrarlo si querés) ---
-        # print("Visibles:", [b["visible"] for b in config.enemigos])
-
         # ✅ VICTORIA: si TODOS los bloques ya no están visibles
-        if all(not b["visible"] for b in config.enemigos):
-            # limpiamos eventos antiguos (para evitar que el endevent del inicio reinicie música)
+        todos_invisibles = True
+
+        for b in config.enemigos:
+            if b["visible"]:
+                todos_invisibles = False
+                break
+
+        if todos_invisibles:
             pygame.event.clear()
             pygame.mixer.music.stop()
-            # reproducir música de victoria
+
             pygame.mixer.music.load(config.MUSICA_VICTORIA)
-            pygame.mixer.music.play(0) # Una sola vez (pero si les parece pongo en loop con -1)
-            config.nivel_1_cargado = False    # para recrear grilla si rejugás
-            config.tiempo_victoria = None     # resetea el timer de victoria
+            pygame.mixer.music.play(0)
+
+            config.nivel_1_cargado = False
+            config.tiempo_victoria = None
             config.estado = "Victoria"
             return
+
 
         # Si toca el suelo pierde
         if config.pelota_lanzada and config.pelota_superficie.bottom >= config.ALTO:
@@ -171,11 +176,36 @@ def nivel_1(eventos):
                 return   # ✅ seguir jugando normalmente
 
             else:
-            # ✅ DERROTA FINAL (solo cuando YA NO HAY VIDAS)
+                # ✅ DERROTA FINAL (RESET TOTAL DE PARTIDA)
+
                 pygame.mixer.music.stop()
                 config.sonido_game_over.play()
+
+                # reinicia vidas
+                config.cantidad_vidas = 3
+                config.corazones_superficie = [
+                    config.corazon_img.get_rect(topleft=(30, 50)),
+                    config.corazon_img.get_rect(topleft=(60, 50)),
+                    config.corazon_img.get_rect(topleft=(90, 50))
+                ]
+
+                # resetea la posicion original de la pelota
+                config.pelota_lanzada = False
+                config.velocidad_pelota = [3, -3]
+                config.pelota_superficie.centerx = config.girasol_superficie.centerx
+                config.pelota_superficie.bottom = config.girasol_superficie.top
+
+                # zombis nuevos
+                config.enemigos.clear()
+                config.nivel_1_cargado = False
+
+                #reinicia la musica
+                config.musica_nivel_iniciada = False
+
+                #se mueve al la img de la derrota
                 config.estado = "Derrota"
                 config.tiempo_game_over = pygame.time.get_ticks()
-                return   # ✅ salir del nivel inmediatamente
+                return
+
 
 
