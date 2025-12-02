@@ -69,7 +69,7 @@ girasol_superficie = girasol_img.get_rect(center = (ANCHO // 2, ALTO // 2 + 200)
 pelota_img = pygame.image.load('assets/img personajes/bala.png')
 pelota_img = pygame.transform.scale(pelota_img, (20,20))
 pelota_superficie = pelota_img.get_rect(center = (ANCHO // 2, girasol_superficie.top))
-velocidad_pelota = [2, -2]
+velocidad_pelota = [3, -3]
 pelota_lanzada = False
 
 #Vidas imagen
@@ -140,6 +140,12 @@ def crear_bloque(x, y, tipo):
 fondo_victoria_img = pygame.image.load('assets/img ganaste/plants-vs-zombies-background-jkn7bebm6m8h7dzc.jpg').convert_alpha()
 fondo_victoria_img = pygame.transform.scale(fondo_victoria_img, (ANCHO, ALTO))
 
+#Fondo derrota
+fondo_game_over_img = pygame.image.load("assets/img game over/Plants_vs._Zombies_1_Game_Over.webp").convert_alpha()
+fondo_game_over_img = pygame.transform.scale(fondo_game_over_img, (ANCHO, ALTO))
+tiempo_game_over = None
+
+
 #tiempo en el que se mantiene en la pantalla de victoria
 tiempo_victoria = None
 
@@ -163,6 +169,7 @@ scoreboard_aka = ""
 
 # la ruta donde se guarda el json
 RUTA_JSON = "scoreboard.json"
+
 
 #   Banderas de control de música / eventos
 musica_nivel_iniciada = False   # para que el inicio (sound) se reproduzca solo 1 vez al entrar al nivel

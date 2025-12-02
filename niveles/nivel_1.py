@@ -157,15 +157,21 @@ def nivel_1(eventos):
             return
 
         # Si toca el suelo pierde
-        if config.pelota_superficie.bottom >= config.ALTO:
+        if config.pelota_lanzada and config.pelota_superficie.bottom >= config.ALTO:
             config.sonido_derrota.play()
             config.cantidad_vidas -= 1
+
             if config.cantidad_vidas > 0:
                 config.corazones_superficie.pop()
-            if config.cantidad_vidas == 0:
+                reiniciar_nivel()
+                return   # ✅ seguir jugando normalmente
+
+            else:
+            # ✅ DERROTA FINAL (solo cuando YA NO HAY VIDAS)
                 pygame.mixer.music.stop()
-                canal = config.sonido_game_over.play()
-                if canal:
-                    canal.set_endevent(pygame.USEREVENT + 40)
-                config.estado = "salir"
-            reiniciar_nivel()
+                config.sonido_game_over.play()
+                config.estado = "Derrota"
+                config.tiempo_game_over = pygame.time.get_ticks()
+                return   # ✅ salir del nivel inmediatamente
+
+
