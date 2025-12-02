@@ -2,6 +2,8 @@
 🎮 Juego estilo **Arkanoid / Breakout** inspirado en Plants vs Zombies  
 🧠 Desarrollado con **Python + Pygame**
 
+Creadores: Martin Urriche, Malena Fernandez, Maia Portilla, Florencia Roumieu
+
 ---
 
 ## 📌 Descripción del Juego
