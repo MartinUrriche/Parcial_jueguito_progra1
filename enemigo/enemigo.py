@@ -25,7 +25,6 @@ def bloquear_recibir_golpe(bloque):
 
     if bloque["vidas"] <= 0:
         bloque["visible"] = False
-        config.enemigos.remove(bloque)
         return
 
     bloque["indice_imagen"] += 1

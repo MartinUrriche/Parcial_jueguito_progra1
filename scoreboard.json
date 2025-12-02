@@ -1,0 +1,18 @@
+[
+    {
+        "nombre": "MIA",
+        "puntaje": 400
+    },
+    {
+        "nombre": "MIRTA",
+        "puntaje": 350
+    },
+    {
+        "nombre": "JUAN",
+        "puntaje": 170
+    },
+    {
+        "nombre": "PEPE",
+        "puntaje": 20
+    }
+]

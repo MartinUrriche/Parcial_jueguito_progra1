@@ -70,29 +70,27 @@ def nivel_1(eventos):
         config.pelota_superficie.x += config.velocidad_pelota[0]
         config.pelota_superficie.y += config.velocidad_pelota[1]
 
-        # Rebotes
+        # Rebotes contra las paredes
         if config.pelota_superficie.left <= 0 or config.pelota_superficie.right >= config.ANCHO:
             config.velocidad_pelota[0] *= -1
 
         if config.pelota_superficie.top <= 0:
             config.velocidad_pelota[1] *= -1
 
-        #movimiento girasol si la pelota se disparo
+        # Movimiento del girasol (solo cuando la pelota ya fue lanzada)
         if teclas[pygame.K_LEFT] and config.girasol_superficie.left > 0:
             config.girasol_superficie.x -= 7
         if teclas[pygame.K_RIGHT] and config.girasol_superficie.right < config.ANCHO:
             config.girasol_superficie.x += 7
         
-        #rebote girasol
+        # Rebote con el girasol
         if config.pelota_superficie.colliderect(config.girasol_superficie):
             config.pelota_superficie.bottom = config.girasol_superficie.top
             config.velocidad_pelota[1] *= -1
 
-
-                # Colisión con los zombies (rebote correcto por lado de impacto)
+        # Colisión con los zombies (rebote correcto según lado)
         for bloque in config.enemigos:
             if bloque["visible"] and config.pelota_superficie.colliderect(bloque["rect"]):
-
 
                 # Centros para calcular el lado del impacto
                 centro_pelota_x = config.pelota_superficie.centerx
@@ -105,14 +103,14 @@ def nivel_1(eventos):
 
                 # Decidir si el rebote es horizontal o vertical
                 if abs(dx) > abs(dy):
-                    # Rebote lateral (izquierda/derecha)
+                    # Rebote lateral
                     config.velocidad_pelota[0] *= -1
                     if dx > 0:
                         config.pelota_superficie.left = bloque["rect"].right
                     else:
                         config.pelota_superficie.right = bloque["rect"].left
                 else:
-                    # Rebote vertical (arriba/abajo)
+                    # Rebote vertical
                     config.velocidad_pelota[1] *= -1
                     if dy > 0:
                         config.pelota_superficie.top = bloque["rect"].bottom
@@ -121,19 +119,20 @@ def nivel_1(eventos):
 
                 # Aplicar daño al zombie
                 enemigo.bloquear_recibir_golpe(bloque)
-                #sumar puntos totales
                 config.puntaje += 10
-                # Cortar para evitar doble golpe
-                break
-        if len(config.enemigos) == 0:
+                break  # solo un zombie por frame
+
+        # --- DEBUG opcional (podés borrarlo si querés) ---
+        # print("Visibles:", [b["visible"] for b in config.enemigos])
+
+        # ✅ VICTORIA: si TODOS los bloques ya no están visibles
+        if all(not b["visible"] for b in config.enemigos):
+            config.nivel_1_cargado = False    # para recrear grilla si rejugás
+            config.tiempo_victoria = None     # resetea el timer de victoria
             config.estado = "Victoria"
             return
 
-
-
-
-
-        # Si toca el suelo pierde (para probar)
+        # Si toca el suelo pierde
         if config.pelota_superficie.bottom >= config.ALTO:
             config.cantidad_vidas -= 1
             if config.cantidad_vidas > 0:
@@ -141,4 +140,3 @@ def nivel_1(eventos):
             if config.cantidad_vidas == 0:
                 config.estado = "salir"
             reiniciar_nivel()
-            

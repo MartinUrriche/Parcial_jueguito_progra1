@@ -137,9 +137,13 @@ puntaje_actual = 0
 # Imagen de fondo del scoreboard
 scoreboard_img = pygame.image.load('assets/img scoreboard/Captura.jpg').convert_alpha()
 scoreboard_img = pygame.transform.scale(scoreboard_img, (ANCHO, ALTO))
+# Estado interno del scoreboard
+scoreboard_estado = "input"   # "input" para escribir nombre, "mostrar" para ver el ranking
+tiempo_scoreboard = None      # para contar los 5 segundos cuando se muestra el ranking
+
 
 # Fuente para escribir el nombre en el scoreboard
-scoreboard_font = pygame.font.SysFont("Courier", 40, bold=True)
+scoreboard_font = pygame.font.SysFont("Courier", 28, bold=True)
 
 # aca se guarda el aka
 scoreboard_aka = ""

@@ -10,8 +10,10 @@ def menu_victoria(eventos):
         config.tiempo_victoria = time.time()
 
     #despues de 5 segundos pasa a pedir el aka(apodo)
-    if time.time() - config.tiempo_victoria > 5:
+    if time.time() - config.tiempo_victoria >= 5:
         config.tiempo_victoria = None
         config.puntaje_actual = config.puntaje
+        config.scoreboard_aka = ""   # ✅ habilita escritura nueva
         config.estado = "Scoreboard"
+
 
