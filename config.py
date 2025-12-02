@@ -35,6 +35,7 @@ boton_jugar = boton_jugar_img.get_rect(center = (ANCHO // 2, ALTO // 2 - 50))
 boton_salir_pausa_img = pygame.image.load('assets/img botones/boton.salir.png').convert_alpha()
 boton_salir_pausa = boton_salir_pausa_img.get_rect(center=(ANCHO // 2, ALTO // 2 + 100))
 
+# boton configuraciones
 boton_configuraciones_img = pygame.image.load('assets/img botones/boton.configuraciones.png').convert_alpha()
 boton_configuraciones = boton_configuraciones_img.get_rect(center = (ANCHO // 2, ALTO // 2 + 25))
 
@@ -121,3 +122,27 @@ def crear_bloque(x, y, tipo):
     bloque["visible"] = True
 
     return bloque
+
+#fondo victoria
+fondo_victoria_img = pygame.image.load('assets/img ganaste/plants-vs-zombies-background-jkn7bebm6m8h7dzc.jpg').convert_alpha()
+fondo_victoria_img = pygame.transform.scale(fondo_victoria_img, (ANCHO, ALTO))
+
+#tiempo en el que se mantiene en la pantalla de victoria
+tiempo_victoria = None
+
+#puntaje
+puntaje = 0
+puntaje_actual = 0
+
+# Imagen de fondo del scoreboard
+scoreboard_img = pygame.image.load('assets/img scoreboard/Captura.jpg').convert_alpha()
+scoreboard_img = pygame.transform.scale(scoreboard_img, (ANCHO, ALTO))
+
+# Fuente para escribir el nombre en el scoreboard
+scoreboard_font = pygame.font.SysFont("Courier", 40, bold=True)
+
+# aca se guarda el aka
+scoreboard_aka = ""
+
+# la ruta donde se guarda el json
+RUTA_JSON = "scoreboard.json"

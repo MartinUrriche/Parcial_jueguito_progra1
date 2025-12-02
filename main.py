@@ -5,6 +5,8 @@ import menus.menu_inicial as menu_inicial
 import niveles.nivel_1 as nivel_1
 import menus.menu_pausa as menu_pausa
 import menus.menu_configuraciones as menu_configuraciones
+import menus.menu_victoria as menu_victoria
+import menus.scoreboard as scoreboard
 
 pygame.init()
 
@@ -32,7 +34,7 @@ while corriendo:
         if not config.nivel_1_cargado:
             config.enemigos = enemigo.generar_grilla(
                 filas=3,
-                columnas=5,
+                columnas=7,
                 x_inicial=80,
                 y_inicial=50,
                 sep_x=120,
@@ -46,6 +48,12 @@ while corriendo:
     
     elif config.estado == "Configuraciones":
         menu_configuraciones.menu_configuracion(eventos)
+    
+    elif config.estado == "Victoria":
+        menu_victoria.menu_victoria(eventos)
+    
+    elif config.estado == "Scoreboard":
+        scoreboard.menu_scoreboard(eventos)
 
     pygame.display.flip()
     reloj.tick(60)

@@ -2,6 +2,8 @@ import pygame
 import random
 import config
 
+enemigos_vivos = False
+
 def generar_grilla(filas, columnas, x_inicial, y_inicial, sep_x, sep_y):
     enemigos = []
 
@@ -23,6 +25,7 @@ def bloquear_recibir_golpe(bloque):
 
     if bloque["vidas"] <= 0:
         bloque["visible"] = False
+        config.enemigos.remove(bloque)
         return
 
     bloque["indice_imagen"] += 1

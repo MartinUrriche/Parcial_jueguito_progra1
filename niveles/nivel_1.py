@@ -39,7 +39,7 @@ def nivel_1(eventos):
     config.pantalla.blit(config.pelota_img, config.pelota_superficie)
 
     # Texto puntaje
-    texto = config.font.render("puntaje:", True, (255, 255, 255))
+    texto = config.font.render(f"Puntaje: {config.puntaje}", True, (255, 255, 255))
     config.pantalla.blit(texto, (config.ANCHO - 200 , config.ALTO - 50))
 
     # ------ PROCESAR EVENTOS ------
@@ -121,9 +121,13 @@ def nivel_1(eventos):
 
                 # Aplicar daño al zombie
                 enemigo.bloquear_recibir_golpe(bloque)
-
+                #sumar puntos totales
+                config.puntaje += 10
                 # Cortar para evitar doble golpe
                 break
+        if len(config.enemigos) == 0:
+            config.estado = "Victoria"
+            return
 
 
 
