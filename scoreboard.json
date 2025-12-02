@@ -20,8 +20,16 @@
         "puntaje": 280
     },
     {
+        "nombre": "MARTINCHO",
+        "puntaje": 200
+    },
+    {
         "nombre": "JUAN",
         "puntaje": 170
+    },
+    {
+        "nombre": "LOLA",
+        "puntaje": 40
     },
     {
         "nombre": "PEPE",
@@ -30,9 +38,5 @@
     {
         "nombre": "LIDIA",
         "puntaje": 20
-    },
-    {
-        "nombre": "FLOR",
-        "puntaje": 10
     }
 ]

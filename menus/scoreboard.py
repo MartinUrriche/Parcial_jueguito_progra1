@@ -3,6 +3,11 @@ import json
 import config
 
 
+def ordenar_por_puntaje(elemento):
+    return elemento["puntaje"]
+
+
+#  GUARDAR PUNTAJE EN JSON
 def guardar_score(nombre, puntaje):
     try:
         with open(config.RUTA_JSON, "r") as archivo:
@@ -10,11 +15,11 @@ def guardar_score(nombre, puntaje):
     except:
         datos = []
 
-    # Agregar nuevo resultado (queda al final de los empates)
+    # Agregar nuevo resultado
     datos.append({"nombre": nombre, "puntaje": puntaje})
 
-    # Ordenar por puntaje (estable -> respeta orden de llegada en empates)
-    datos.sort(key=lambda x: x["puntaje"], reverse=True)
+    # Ordenar por puntaje (de mayor a menor)
+    datos.sort(key=ordenar_por_puntaje, reverse=True)
 
     # Mantener solo los mejores 10
     datos = datos[:10]
@@ -24,19 +29,23 @@ def guardar_score(nombre, puntaje):
         json.dump(datos, archivo, indent=4)
 
 
+# MENÚ DEL SCOREBOARD
 def menu_scoreboard(eventos):
-    # Iniciar música del scoreboard 
+
+    # Iniciar música del scoreboard
     if not getattr(config, "musica_score_activa", False):
         pygame.mixer.music.stop()
         pygame.mixer.music.load(config.MUSICA_PUNTAJE)
         pygame.mixer.music.play(-1)
         config.musica_score_activa = True
 
-    # Fondo scoreboard
+    # Fondo del scoreboard
     config.pantalla.blit(config.scoreboard_img, (0, 0))
 
-    # -------- TEXTO QUE SE ESTÁ ESCRIBIENDO (ABAJO, MITAD DERECHA) --------
-    texto_nombre = config.scoreboard_font.render(config.scoreboard_aka, True, (255, 255, 0))
+    # -------- TEXTO QUE SE ESTÁ ESCRIBIENDO --------
+    texto_nombre = config.scoreboard_font.render(
+        config.scoreboard_aka, True, (255, 255, 0)
+    )
     config.pantalla.blit(texto_nombre, (620, 560))
 
     # Cursor parpadeante estilo arcade
@@ -52,14 +61,16 @@ def menu_scoreboard(eventos):
     except:
         datos = []
 
-    # -------- POSICIONES ALINEADAS CON TU IMAGEN (1ST ARRIBA) --------
+    # -------- POSICIONES EN PANTALLA --------
     columna_score_x = 360
     columna_name_x = 560
     filas_y = [125, 145, 165, 185, 205, 225, 245, 265, 285, 305]
 
-    # -------- DIBUJAR PUNTAJES Y NOMBRES --------
-    for i, jugador in enumerate(datos):
+    # -------- DIBUJAR PUNTAJES --------
+    for i in range(len(datos)):
         if i < 10:
+            jugador = datos[i]
+
             texto_score = config.scoreboard_font.render(
                 str(jugador["puntaje"]), True, (255, 255, 255)
             )
@@ -74,20 +85,20 @@ def menu_scoreboard(eventos):
     for evento in eventos:
         if evento.type == pygame.KEYDOWN:
 
-            # ENTER -> guardar nombre y volver al menú
+            # ENTER → guardar nombre y volver al menú
             if evento.key == pygame.K_RETURN and len(config.scoreboard_aka) > 0:
                 guardar_score(config.scoreboard_aka, config.puntaje_actual)
                 config.scoreboard_aka = ""
-                 # Detener música del scoreboard y volver al menú
+
                 pygame.mixer.music.stop()
                 config.musica_score_activa = False
                 config.estado = "menu_inicial"
 
-            # BORRAR
+            # BORRAR LETRA
             elif evento.key == pygame.K_BACKSPACE:
                 config.scoreboard_aka = config.scoreboard_aka[:-1]
 
-            # Agregar letras y números
+            # AGREGAR LETRAS Y NÚMEROS
             else:
                 if len(config.scoreboard_aka) < 10:
                     caracter = evento.unicode.upper()

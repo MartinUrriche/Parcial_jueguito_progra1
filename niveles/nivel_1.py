@@ -11,7 +11,7 @@ def reiniciar_nivel():
 
     # Velocidad original del nivel
     config.velocidad_pelota = [3, -3]
-
+ 
     # bandera de si la pelota fue lanzada
     config.pelota_lanzada = False
 
@@ -159,6 +159,27 @@ def nivel_1(eventos):
             pygame.mixer.music.load(config.MUSICA_VICTORIA)
             pygame.mixer.music.play(0)
 
+            # reinicia vidas
+            config.cantidad_vidas = 3
+            config.corazones_superficie = [
+                config.corazon_img.get_rect(topleft=(30, 10)),
+                config.corazon_img.get_rect(topleft=(60, 10)),
+                config.corazon_img.get_rect(topleft=(90, 10))
+            ]
+
+            # resetea la posicion original de la pelota
+            config.pelota_lanzada = False
+            config.velocidad_pelota = [3, -3]
+            config.pelota_superficie.centerx = config.girasol_superficie.centerx
+            config.pelota_superficie.bottom = config.girasol_superficie.top
+
+            # zombis nuevos
+            config.enemigos.clear()
+            config.nivel_1_cargado = False
+
+            #reinicia la musica
+            config.musica_nivel_iniciada = False
+
             config.nivel_1_cargado = False
             config.tiempo_victoria = None
             config.estado = "Victoria"
@@ -184,9 +205,9 @@ def nivel_1(eventos):
                 # reinicia vidas
                 config.cantidad_vidas = 3
                 config.corazones_superficie = [
-                    config.corazon_img.get_rect(topleft=(30, 50)),
-                    config.corazon_img.get_rect(topleft=(60, 50)),
-                    config.corazon_img.get_rect(topleft=(90, 50))
+                    config.corazon_img.get_rect(topleft=(30, 10)),
+                    config.corazon_img.get_rect(topleft=(60, 10)),
+                    config.corazon_img.get_rect(topleft=(90, 10))
                 ]
 
                 # resetea la posicion original de la pelota
