@@ -35,7 +35,7 @@ while corriendo:
         if not config.nivel_1_cargado:
             config.enemigos = enemigo.generar_grilla(
                 filas=3,
-                columnas=4,
+                columnas=6,
                 x_inicial=80,
                 y_inicial=50,
                 sep_x=120,
