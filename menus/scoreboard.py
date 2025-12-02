@@ -25,6 +25,13 @@ def guardar_score(nombre, puntaje):
 
 
 def menu_scoreboard(eventos):
+    # Iniciar música del scoreboard 
+    if not getattr(config, "musica_score_activa", False):
+        pygame.mixer.music.stop()
+        pygame.mixer.music.load(config.MUSICA_PUNTAJE)
+        pygame.mixer.music.play(-1)
+        config.musica_score_activa = True
+
     # Fondo scoreboard
     config.pantalla.blit(config.scoreboard_img, (0, 0))
 
@@ -71,6 +78,9 @@ def menu_scoreboard(eventos):
             if evento.key == pygame.K_RETURN and len(config.scoreboard_aka) > 0:
                 guardar_score(config.scoreboard_aka, config.puntaje_actual)
                 config.scoreboard_aka = ""
+                 # Detener música del scoreboard y volver al menú
+                pygame.mixer.music.stop()
+                config.musica_score_activa = False
                 config.estado = "menu_inicial"
 
             # BORRAR

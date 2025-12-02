@@ -3,8 +3,21 @@ import pygame
 ANCHO, ALTO = 800, 600
 
 pygame.init()
+pygame.mixer.init()
 pantalla = pygame.display.set_mode((ANCHO, ALTO))
 pygame.display.set_caption("No es plantas VS zombies")
+
+# Musica
+musica_menu = "assets/sonidos/musica_menu.mp3"
+MUSICA_NIVEL_1 = "assets/sonidos/musica_nivel_1.mp3"
+MUSICA_VICTORIA = "assets/sonidos/musica_victoria.mp3"
+MUSICA_PUNTAJE = "assets/sonidos/puntajes.mp3"
+
+#  Efectos de sonido
+sonido_inicio_juego = pygame.mixer.Sound("assets/sonidos/zombies_comming.mp3")
+sonido_golpe_simple = pygame.mixer.Sound("assets/sonidos/golpe_simple.mp3")
+sonido_derrota = pygame.mixer.Sound("assets/sonidos/perdiste.mp3")
+sonido_game_over = pygame.mixer.Sound("assets/sonidos/zombies_ganan.mp3")
 
 #fuente
 font = pygame.font.SysFont("Arial", 30)
@@ -150,3 +163,8 @@ scoreboard_aka = ""
 
 # la ruta donde se guarda el json
 RUTA_JSON = "scoreboard.json"
+
+#   Banderas de control de música / eventos
+musica_nivel_iniciada = False   # para que el inicio (sound) se reproduzca solo 1 vez al entrar al nivel
+musica_menu_activa = False      # para no reiniciar música del menú cada frame
+musica_score_activa = False     # para el scoreboard

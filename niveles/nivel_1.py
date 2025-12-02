@@ -2,6 +2,8 @@ import pygame
 import config
 import enemigo.enemigo as enemigo
 
+pygame.mixer.init()
+
 def reiniciar_nivel():
     # Pelota quieta, en posición inicial 
     config.pelota_superficie.centerx = config.girasol_superficie.centerx
@@ -15,6 +17,22 @@ def reiniciar_nivel():
 
 
 def nivel_1(eventos):
+
+    # CONTROL DE SONIDO DEL NIVEL
+    if not config.MUSICA_NIVEL_1:
+        canal = config.sonido_inicio_juego.play()
+        if canal:
+            canal.set_endevent(pygame.USEREVENT + 10)
+
+        config.musica_nivel_iniciada = True
+
+    for evento in eventos:
+        if evento.type == pygame.USEREVENT + 10:
+            # arrancar musica del nivel (loop)
+            pygame.mixer.music.load(config.MUSICA_NIVEL_1)
+            pygame.mixer.music.play(-1)
+            # limpiar el evento
+            pygame.event.clear(pygame.USEREVENT + 10)
     
     # Fondo del nivel
     config.pantalla.blit(config.fondo_nivel_1, (0, 0))
@@ -127,6 +145,12 @@ def nivel_1(eventos):
 
         # ✅ VICTORIA: si TODOS los bloques ya no están visibles
         if all(not b["visible"] for b in config.enemigos):
+            # limpiamos eventos antiguos (para evitar que el endevent del inicio reinicie música)
+            pygame.event.clear()
+            pygame.mixer.music.stop()
+            # reproducir música de victoria
+            pygame.mixer.music.load(config.MUSICA_VICTORIA)
+            pygame.mixer.music.play(0) # Una sola vez (pero si les parece pongo en loop con -1)
             config.nivel_1_cargado = False    # para recrear grilla si rejugás
             config.tiempo_victoria = None     # resetea el timer de victoria
             config.estado = "Victoria"
@@ -134,9 +158,14 @@ def nivel_1(eventos):
 
         # Si toca el suelo pierde
         if config.pelota_superficie.bottom >= config.ALTO:
+            config.sonido_derrota.play()
             config.cantidad_vidas -= 1
             if config.cantidad_vidas > 0:
                 config.corazones_superficie.pop()
             if config.cantidad_vidas == 0:
+                pygame.mixer.music.stop()
+                canal = config.sonido_game_over.play()
+                if canal:
+                    canal.set_endevent(pygame.USEREVENT + 40)
                 config.estado = "salir"
             reiniciar_nivel()

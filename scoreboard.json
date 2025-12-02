@@ -14,5 +14,9 @@
     {
         "nombre": "PEPE",
         "puntaje": 20
+    },
+    {
+        "nombre": "FLOR",
+        "puntaje": 10
     }
 ]

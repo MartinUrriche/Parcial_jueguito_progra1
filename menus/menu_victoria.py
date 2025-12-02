@@ -14,6 +14,8 @@ def menu_victoria(eventos):
         config.tiempo_victoria = None
         config.puntaje_actual = config.puntaje
         config.scoreboard_aka = ""   # ✅ habilita escritura nueva
+        # detener música de victoria y pasar a scoreboard (scoreboard cargará su propia música)
+        pygame.mixer.music.stop()
         config.estado = "Scoreboard"
 
 
