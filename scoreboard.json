@@ -12,6 +12,10 @@
         "puntaje": 350
     },
     {
+        "nombre": "MARIA",
+        "puntaje": 350
+    },
+    {
         "nombre": "LAURA",
         "puntaje": 290
     },
@@ -33,10 +37,6 @@
     },
     {
         "nombre": "PEPE",
-        "puntaje": 20
-    },
-    {
-        "nombre": "LIDIA",
         "puntaje": 20
     }
 ]

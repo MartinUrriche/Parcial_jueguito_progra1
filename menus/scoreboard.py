@@ -7,7 +7,7 @@ def ordenar_por_puntaje(elemento):
     return elemento["puntaje"]
 
 
-#  GUARDAR PUNTAJE EN JSON
+#  Guarda el puntaje en JSON
 def guardar_score(nombre, puntaje):
     try:
         with open(config.RUTA_JSON, "r") as archivo:
@@ -15,46 +15,46 @@ def guardar_score(nombre, puntaje):
     except:
         datos = []
 
-    # Agregar nuevo resultado
+    # Agregamos otro puntaje
     datos.append({"nombre": nombre, "puntaje": puntaje})
 
-    # Ordenar por puntaje (de mayor a menor)
+    # Ordenamos con sort de mayor a menor
     datos.sort(key=ordenar_por_puntaje, reverse=True)
 
-    # Mantener solo los mejores 10
+    # Solo guardamos 10 posiciones
     datos = datos[:10]
 
-    # Guardar en el archivo
+    # Guardamos el archivo
     with open(config.RUTA_JSON, "w") as archivo:
         json.dump(datos, archivo, indent=4)
 
 
-# MENÚ DEL SCOREBOARD
+
 def menu_scoreboard(eventos):
 
-    # Iniciar música del scoreboard
+    # Inicia música del Scoreboard
     if not getattr(config, "musica_score_activa", False):
         pygame.mixer.music.stop()
         pygame.mixer.music.load(config.MUSICA_PUNTAJE)
         pygame.mixer.music.play(-1)
         config.musica_score_activa = True
 
-    # Fondo del scoreboard
+    # Fondo del Scoreboard
     config.pantalla.blit(config.scoreboard_img, (0, 0))
 
-    # -------- TEXTO QUE SE ESTÁ ESCRIBIENDO --------
+    #  Escribe nuestro apodo en mayúsculas, en blanco 
     texto_nombre = config.scoreboard_font.render(
-        config.scoreboard_aka, True, (255, 255, 0)
+        config.scoreboard_aka, False, (255, 255, 0)
     )
     config.pantalla.blit(texto_nombre, (620, 560))
 
-    # Cursor parpadeante estilo arcade
+    # Crea un rect que va apareciendo cada 0.5 segundos
     tiempo_actual = pygame.time.get_ticks()
     if (tiempo_actual // 500) % 2 == 0:
         x_cursor = 620 + texto_nombre.get_width() + 10
         pygame.draw.rect(config.pantalla, (255, 255, 0), (x_cursor, 580, 20, 5))
 
-    # -------- CARGAR SCORES DEL JSON --------
+    # CARGAR SCORES DEL JSON
     try:
         with open(config.RUTA_JSON, "r") as archivo:
             datos = json.load(archivo)
